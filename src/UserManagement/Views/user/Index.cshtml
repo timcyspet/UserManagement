@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<style>
+
+    .success-container {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, -10%);
+        background: #ffe600;
+        padding: 2rem;
+        text-align: center;
+        border-radius: .5rem;
+        font-weight: 600;
+    }
+
+    .error-container {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, -10%);
+        background: #ae120f;
+        padding: 2rem;
+        text-align: center;
+        border-radius: .5rem;
+        font-weight: 600;
+        color: #fff;
+    }
+</style>
+@if (ViewData["ErrorHost"] != null)
+{
+    <div class="error-container">
+        <p>Please don’t use AAD service to authenticate against @ViewData["ErrorHost"]</p>
+    </div>
+}
+else
+{
+    <div class="success-container">
+        <p>You have successfully logged in!</p>
+        <p>You will be redirected to the home page soon.</p>
+    </div>
+}
+<script type="text/javascript">
+    var popupOpenedFlagString = '@ViewData["popup_openend"]';
+    var popupOpenedFlag = popupOpenedFlagString == "True" ? true : false;
+    if (popupOpenedFlag) {
+        window.close();
+    }
+    else {
+        if ('@ViewData["Host"]' && '@ViewData["Host"]' != '') {
+            window.location.href = '@Html.Raw(ViewData["Host"])';
+        }
+    }
+</script>
